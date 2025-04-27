@@ -1,5 +1,5 @@
 {
-    "name": "credentials-reader-action",
+    "name": "json-secrets-reader-action",
     "version": "1.0.0",
     "main": "index.js",
     "dependencies": {

@@ -20,9 +20,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run credentials-reader-action
+      - name: Run json-secrets-reader-action
         id: read-credentials
-        uses: rynodivino/credentials-reader-action@v1.0.0
+        uses: ./
         with:
           credentials: ${{ secrets.credentials }}
           env: ${{ github.event.inputs.environment }}
