@@ -1,0 +1,19 @@
+name: 'Credentials Reader'
+description: 'Reads a JSON-stringified credentials secret and extracts USER and PW for a specified environment'
+inputs:
+  credentials:
+    description: 'JSON-stringified credentials secret'
+    required: true
+  env:
+    description: 'Environment key to extract credentials for (e.g., staging, production)'
+    required: true
+outputs:
+  user:
+    description: 'The USER value for the specified environment'
+    value: ${{ steps.set-outputs.outputs.user }}
+  pw:
+    description: 'The PW value for the specified environment'
+    value: ${{ steps.set-outputs.outputs.pw }}
+runs:
+  using: 'node16'
+  main: 'index.js'
