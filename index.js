@@ -17,7 +17,6 @@ try {
   const user = credentials[env].USER;
   const pw = credentials[env].PW;
   
-  console.log("--------------->",user, pw)
 
   if (!user || !pw) {
     core.setFailed(`Invalid credentials for environment "${env}". Expected USER and PW.`);
