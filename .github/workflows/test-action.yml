@@ -1,0 +1,34 @@
+
+
+name: Test Credentials Reader Action
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to test (staging or production)'
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run credentials-reader-action
+        id: read-credentials
+        uses: rynodivino/credentials-reader-action@v1.0.0
+        with:
+          credentials: ${{ secrets.credentials }}
+          env: ${{ github.event.inputs.environment }}
+
+      - name: Set credentials as environment variables
+        run: |
+          echo "TEST_USER=${{ steps.read-credentials.outputs.user }}" >> $GITHUB_ENV
+          echo "TEST_PW=${{ steps.read-credentials.outputs.pw }}" >> $GITHUB_ENV
+

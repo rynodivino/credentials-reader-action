@@ -15,5 +15,5 @@ outputs:
     description: 'The PW value for the specified environment'
     value: ${{ steps.set-outputs.outputs.pw }}
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'index.js'
