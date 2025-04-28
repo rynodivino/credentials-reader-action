@@ -1,31 +1,32 @@
 const core = require('@actions/core');
+const dot = require('dot-object');
 
 try {
-  const credentialsJson = core.getInput('credentials', { required: true });
-  const env = core.getInput('env', { required: true });
+  const secretsJson = core.getInput('secrets', { required: true });
+  const keysInput = core.getInput('keys', { required: true });
 
-  // Parse the JSON string
-  const credentials = JSON.parse(credentialsJson);
+  // Split and trim keys (e.g., "staging.username,staging.password" -> ["staging.username", "staging.password"])
+  const keys = keysInput.split(',').map(key => key.trim());
 
-  // Check if the environment exists
-  if (!credentials[env]) {
-    core.setFailed(`Environment "${env}" not found in credentials`);
+  if (keys.length < 1) {
+    core.setFailed('At least one key must be provided (e.g., staging.username)');
     return;
   }
 
-  // Extract USER and PW
-  const user = credentials[env].USER;
-  const pw = credentials[env].PW;
-  
+  const secrets = JSON.parse(secretsJson);
 
-  if (!user || !pw) {
-    core.setFailed(`Invalid credentials for environment "${env}". Expected USER and PW.`);
-    return;
-  }
+  // Extract values and set outputs named after the last key
+  keys.forEach(key => {
+    const value = dot.pick(key, secrets);
+    if (value === undefined) {
+      core.setFailed(`Key "${key}" not found in secrets`);
+      return;
+    }
 
-  // Set outputs
-  core.setOutput('user', user);
-  core.setOutput('pw', pw);
+    // Get the last key/facet in the path (e.g., "staging.username" -> "username")
+    const outputName = key.split('.').pop();
+    core.setOutput(outputName, value);
+  });
 } catch (error) {
   core.setFailed(`Action failed: ${error.message}`);
 }
