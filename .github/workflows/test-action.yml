@@ -1,6 +1,4 @@
-
-
-name: Test Credentials Reader Action
+name: Test Secrets Parser
 
 on:
   workflow_dispatch:
@@ -20,15 +18,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run json-secrets-reader-action
-        id: read-credentials
-        uses: ./
+      - name: Run secrets-parser
+        id: parse-secrets
+        # uses: rynodivino/json-secrets-parser
+        uses: ./.
         with:
-          credentials: ${{ secrets.credentials }}
-          env: ${{ github.event.inputs.environment }}
+          secrets: ${{ secrets.secrets }}
+          keys: ${{ github.event.inputs.environment }}.username,${{ github.event.inputs.environment }}.password
 
-      - name: Set credentials as environment variables
+      - name: Print outputs
         run: |
-          echo "TEST_USER=${{ steps.read-credentials.outputs.user }}" >> $GITHUB_ENV
-          echo "TEST_PW=${{ steps.read-credentials.outputs.pw }}" >> $GITHUB_ENV
-
+          echo "Username: ${{ steps.parse-secrets.outputs.username }}"
+          echo "Password: ${{ steps.parse-secrets.outputs.password }}"

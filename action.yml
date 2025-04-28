@@ -1,19 +1,13 @@
-name: 'Credentials Reader'
-description: 'Reads a JSON-stringified credentials secret and extracts USER and PW for a specified environment'
+name: 'JSON Secrets Parser'
+description: 'Reads a JSON-stringified secrets and extracts keys, then sets them to outputs.'
 inputs:
-  credentials:
-    description: 'JSON-stringified credentials secret'
-    required: true
-  env:
-    description: 'Environment key to extract credentials for (e.g., staging, production)'
+  keys:
+    description: 'An comma separated of keys to parse out of the json object (e.g. staging.user, staging.pw)'
     required: true
 outputs:
-  user:
-    description: 'The USER value for the specified environment'
+  key:
+    description: 'The key + value of each key input (e.g. staging.user returns and output {user:"Joe Username"})'
     value: ${{ steps.set-outputs.outputs.user }}
-  pw:
-    description: 'The PW value for the specified environment'
-    value: ${{ steps.set-outputs.outputs.pw }}
 runs:
   using: 'node20'
   main: 'index.js'
