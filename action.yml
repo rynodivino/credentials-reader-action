@@ -1,7 +1,7 @@
 name: 'JSON Secrets Parser'
 description: 'Reads a JSON-stringified secrets and extracts keys, then sets them to outputs.'
-secrets:
-  keys:
+inputs:
+  secrets:
     description: 'A stringified JSON object containing secrets (or anything)'
     required: true
   keys:
