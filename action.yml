@@ -1,5 +1,8 @@
 name: 'JSON Secrets Parser'
 description: 'Reads a JSON-stringified secrets and extracts keys, then sets them to outputs.'
+branding:
+  icon: 'activity'
+  color: 'purple'
 inputs:
   secrets:
     description: 'A stringified JSON object containing secrets (or anything)'
