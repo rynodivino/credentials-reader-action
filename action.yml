@@ -13,4 +13,4 @@ outputs:
     value: ${{ steps.set-outputs.outputs.user }}
 runs:
   using: 'node20'
-  main: 'index.js'
+  main: 'dist/index.js'
