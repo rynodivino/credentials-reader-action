@@ -1,4 +1,4 @@
- Credentials Reader Action
+ Secrets Reader Action
 
 A GitHub Action to read a JSON-stringified `secrets` (or params) and extract data out of the object into simple key values.
 
