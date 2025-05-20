@@ -10,7 +10,8 @@
         "@vercel/ncc": "^0.38.3"
     },
     "scripts": {
-        "build": "ncc build index.js -o dist"
+        "build": "ncc build index.js -o dist",
+        "test": "act workflow_dispatch -e event.json --secret-file .secrets --bind"
      }
 
 }
