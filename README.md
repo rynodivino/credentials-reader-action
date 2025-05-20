@@ -11,7 +11,7 @@ A GitHub Action to read a JSON-stringified `secrets` (or params) and extract dat
 Use this action in your GitHub Actions workflow by referencing the repository and tag:
  
 ```yaml
-uses: rynodivino/json-secrets-parser@v1.0.0
+uses: rynodivino/json-secrets-parser@v1.0.1
 ```
 Example workflow:
 ```yaml
@@ -38,7 +38,7 @@ jobs:
 
       - name: Run secrets-parser
         id: parse-secrets
-        uses: rynodivino/json-secrets-parser
+        uses: rynodivino/json-secrets-parser@1.0.1
         with:
           secrets: ${{ secrets.secrets }}
           keys: ${{ github.event.inputs.environment }}.username,${{ github.event.inputs.environment }}.password

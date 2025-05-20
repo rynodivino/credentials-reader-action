@@ -23,6 +23,9 @@ try {
       return;
     }
 
+    // Mask the secret output
+    core.setSecret(value)
+
     // Get the last key/facet in the path (e.g., "staging.username" -> "username")
     const outputName = key.split('.').pop();
     core.setOutput(outputName, value);
